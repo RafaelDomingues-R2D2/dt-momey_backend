@@ -21,3 +21,14 @@ model User {
   
   @@map("users")
 }
+
+model Transaction {
+  id             String @id @default(uuid())
+  description    String
+  type           String
+  category       String
+  price          Float
+  created_at     DateTime @default(now())
+
+  @@map("transactions")
+}
