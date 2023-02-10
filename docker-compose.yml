@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    container_name: ${HOST}
+    restart: always
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    container_name: ${CONTAINER_NAME}
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@database:${DB_PORT}/${DB_NAME}
+      
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules/brycpt/
+    links: 
+      - database
+    depends_on:
+      - database
+
+volumes:
+  pgdata:
+    driver: local
