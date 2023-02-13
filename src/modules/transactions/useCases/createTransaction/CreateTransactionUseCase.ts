@@ -1,12 +1,12 @@
 import { inject, injectable } from "tsyringe";
 import { ICreateTransactionDTO } from "../../dtos/ICreateTransactionDTO";
-import { ITransactionRepository } from "../../repositories/ITransactionsRepository";
+import { ITransactionsRepository } from "../../repositories/ITransactionsRepository";
 
 @injectable()
 export class CreateTransactionUseCase {
     constructor(
         @inject("TransactionRepository")
-        private transactionRepository: ITransactionRepository
+        private transactionRepository: ITransactionsRepository
     ){}
 
     async execute({ description, type, category, price }: ICreateTransactionDTO): Promise<void>{
