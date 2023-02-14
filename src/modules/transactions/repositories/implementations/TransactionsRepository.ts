@@ -1,6 +1,7 @@
 import { Transaction } from "@prisma/client";
 import { prisma } from "../../../../shared/infra/database/prismaClient";
 import { ICreateTransactionDTO } from "../../dtos/ICreateTransactionDTO";
+import { IUpdateTransactionDTO } from "../../dtos/IUpdateTransactionDTO";
 import { ITransactionsRepository } from "../ITransactionsRepository";
 
 export class TransactionRepository implements ITransactionsRepository {
@@ -21,6 +22,16 @@ export class TransactionRepository implements ITransactionsRepository {
         return transactions
     }
 
+    async findById(id: string): Promise<Transaction> {
+        const transaction = await prisma.transaction.findUnique({
+            where: {
+                id
+            }
+        })
+
+        return transaction
+    }
+
     async findByName(description: string): Promise<Transaction> {
         const transaction = await prisma.transaction.findFirst({
             where: {
@@ -29,5 +40,17 @@ export class TransactionRepository implements ITransactionsRepository {
         })
 
         return transaction
+    }
+
+    async update({ id, description, type, category, price }: IUpdateTransactionDTO): Promise<void>{
+        await prisma.transaction.update({
+            where: { id },
+            data: {
+                description,
+                type,
+                category,
+                price
+            }
+        })
     }
 }
