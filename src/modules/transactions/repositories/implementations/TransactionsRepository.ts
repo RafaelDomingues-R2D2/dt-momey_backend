@@ -5,10 +5,10 @@ import { IUpdateTransactionDTO } from "../../dtos/IUpdateTransactionDTO";
 import { ITransactionsRepository } from "../ITransactionsRepository";
 
 export class TransactionRepository implements ITransactionsRepository {
-    async create({ description, type, category, price }: ICreateTransactionDTO): Promise<void>{
+    async create({ name, type, category, price }: ICreateTransactionDTO): Promise<void>{
         await prisma.transaction.create({
             data: {
-                description,
+                name,
                 type,
                 category,
                 price
@@ -32,21 +32,21 @@ export class TransactionRepository implements ITransactionsRepository {
         return transaction
     }
 
-    async findByName(description: string): Promise<Transaction> {
+    async findByName(name: string): Promise<Transaction> {
         const transaction = await prisma.transaction.findFirst({
             where: {
-                description
+                name
             }
         })
 
         return transaction
     }
 
-    async update({ id, description, type, category, price }: IUpdateTransactionDTO): Promise<void>{
+    async update({ id, name, type, category, price }: IUpdateTransactionDTO): Promise<void>{
         await prisma.transaction.update({
             where: { id },
             data: {
-                description,
+                name,
                 type,
                 category,
                 price

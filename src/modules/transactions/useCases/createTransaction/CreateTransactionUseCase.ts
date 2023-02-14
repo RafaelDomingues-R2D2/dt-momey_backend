@@ -9,9 +9,9 @@ export class CreateTransactionUseCase {
         private transactionRepository: ITransactionsRepository
     ){}
 
-    async execute({ description, type, category, price }: ICreateTransactionDTO): Promise<void>{
+    async execute({ name, type, category, price }: ICreateTransactionDTO): Promise<void>{
         await this.transactionRepository.create({
-            description, 
+            name, 
             type, 
             category, 
             price

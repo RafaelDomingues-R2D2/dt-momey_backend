@@ -14,5 +14,5 @@ const updateTransactionController = new UpdateTransactionController()
 
 transactionsRoutes.post("/create", createTransactionController.handle)
 transactionsRoutes.get("/", listTransactionController.handle)
-transactionsRoutes.get("/findByName", findByNameTransactionController.handle)
+transactionsRoutes.get("/findByName/:name", findByNameTransactionController.handle)
 transactionsRoutes.patch("/:id/update", updateTransactionController.handle)

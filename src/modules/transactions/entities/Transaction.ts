@@ -1,6 +1,6 @@
 export class Transaction {
     id: string
-    description: string
+    name: string
     type: string
     category: string
     price: number

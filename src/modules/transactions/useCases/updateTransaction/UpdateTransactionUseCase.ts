@@ -9,10 +9,10 @@ export class UpdateTransationUseCase {
         private transactionRepository: ITransactionsRepository
     ){}
 
-    async execute({id, description, type, category, price}: IUpdateTransactionDTO): Promise<void>{
+    async execute({id, name, type, category, price}: IUpdateTransactionDTO): Promise<void>{
         await this.transactionRepository.update({
             id,
-            description,
+            name,
             type,
             category,
             price

@@ -9,8 +9,8 @@ export class FindByNameTransactionUseCase {
         private transactionRepository: ITransactionsRepository
     ){}
 
-    async execute(description: string): Promise<Transaction>{
-        const transaction = await this.transactionRepository.findByName(description)
+    async execute(name: string): Promise<Transaction>{
+        const transaction = await this.transactionRepository.findByName(name)
 
         return transaction
     }
