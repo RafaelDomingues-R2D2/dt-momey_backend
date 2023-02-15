@@ -5,11 +5,14 @@ import { ListTransactionUseCase } from "./ListTransactionUseCase"
 
 export class ListTransactionController {
     async handle(request: Request, response: Response): Promise<Response>{
+        const { name } = request.query
+
+        console.log(name)
 
         const listTransactionUseCase = container.resolve(ListTransactionUseCase)
 
-        const query = await listTransactionUseCase.execute()
+        const transactions = await listTransactionUseCase.execute(name)
 
-        return response.json(query)
+        return response.status(200).json({transactions})
     }
 }

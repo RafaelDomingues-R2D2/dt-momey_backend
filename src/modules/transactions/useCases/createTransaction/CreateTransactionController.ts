@@ -8,13 +8,13 @@ export class CreateTransactionController {
 
         const createTransactionUseCase = container.resolve(CreateTransactionUseCase)
 
-        await createTransactionUseCase.execute({
+        const transactions = await createTransactionUseCase.execute({
             name,
             type,
             category,
             price
         })
 
-        return response.status(201).send()
+        return response.status(201).json({transactions})
     }
 }

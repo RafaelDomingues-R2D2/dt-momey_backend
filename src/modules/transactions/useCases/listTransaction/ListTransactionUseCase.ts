@@ -9,8 +9,8 @@ export class ListTransactionUseCase {
         private transactionRepository: ITransactionsRepository
     ){}
 
-    async execute(): Promise<Transaction[]>{
-        const transactions = await this.transactionRepository.list()
+    async execute(name): Promise<Transaction[]>{
+        const transactions = await this.transactionRepository.list(name)
 
         return transactions
     }

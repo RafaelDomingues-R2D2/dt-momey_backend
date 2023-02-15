@@ -9,7 +9,7 @@ export class UpdateTransactionController {
 
         const updateTransactionUseCase = container.resolve(UpdateTransationUseCase)
 
-        await updateTransactionUseCase.execute({
+        const transactions = await updateTransactionUseCase.execute({
             id,
             name,
             type,
@@ -17,6 +17,6 @@ export class UpdateTransactionController {
             price
         })
     
-        return response.status(201).send()        
+        return response.status(201).json({transactions})        
     }
 }

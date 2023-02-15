@@ -8,8 +8,8 @@ export class FindByNameTransactionController {
 
         const findByNameTransactionUseCase = container.resolve(FindByNameTransactionUseCase)
 
-        const query = await findByNameTransactionUseCase.execute(name)
+        const transactions = await findByNameTransactionUseCase.execute(name)
 
-        return response.json(query)
+        return response.status(200).json({transactions})
     }
 }
