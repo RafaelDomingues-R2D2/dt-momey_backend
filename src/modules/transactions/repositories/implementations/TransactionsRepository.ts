@@ -16,8 +16,10 @@ export class TransactionRepository implements ITransactionsRepository {
         })
     }
 
-    async list(name?: string): Promise<Transaction[]>{
+    async list(name?: string, skip?: number, take?: number): Promise<Transaction[]>{
         const transactions = await prisma.transaction.findMany({
+            skip: skip,
+            take: take,
             where: {
                 name
             }
@@ -56,5 +58,11 @@ export class TransactionRepository implements ITransactionsRepository {
                 price
             }
         })
+    }
+
+    async count(): Promise<Number>{
+        const count = await prisma.transaction.count()
+
+        return count
     }
 }

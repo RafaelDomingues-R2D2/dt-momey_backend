@@ -1,18 +1,24 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe"
 
+import { CountTransactionUseCase } from "../countTransaction/CountTransactionUseCase";
 import { ListTransactionUseCase } from "./ListTransactionUseCase"
 
 export class ListTransactionController {
     async handle(request: Request, response: Response): Promise<Response>{
-        const { name } = request.query
-
-        console.log(name)
+        const { name, skip, take } = request.query
 
         const listTransactionUseCase = container.resolve(ListTransactionUseCase)
+        const countTransactionUseCase = container.resolve(CountTransactionUseCase)
 
-        const transactions = await listTransactionUseCase.execute(name)
+        const Transactions = await listTransactionUseCase.execute(
+            name, 
+            skip, 
+            take
+        )
 
-        return response.status(200).json({transactions})
+        const count = await countTransactionUseCase.execute()
+
+        return response.status(200).json({Transactions, count})
     }
 }
