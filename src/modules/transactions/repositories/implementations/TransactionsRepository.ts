@@ -16,10 +16,16 @@ export class TransactionRepository implements ITransactionsRepository {
         })
     }
 
-    async list(name?: string): Promise<Transaction[]>{
+    async list(startDate: Date, endDate: Date, name?: string,): Promise<Transaction[]>{
         const transactions = await prisma.transaction.findMany({
             where: {
-                name
+                created_at: {
+                    gte: startDate,
+                    lte: endDate,
+                },
+                name: {
+                    contains: name
+                },
             }
         })
 
@@ -55,6 +61,14 @@ export class TransactionRepository implements ITransactionsRepository {
                 category,
                 price
             }
+        })
+    }
+
+    async delete(id: string): Promise<void>{
+        await prisma.transaction.delete({
+            where: {
+                id,
+            },
         })
     }
 }
